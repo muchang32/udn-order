@@ -37,6 +37,14 @@ const AdminPage = () => {
   const { toast } = useToast();
   const { user, isAdmin, isSuperAdmin, isLoading: authLoading, isRoleLoading, signOut } = useAuth();
 
+  const handleSignOut = async () => {
+    await signOut();
+    toast({
+      title: "已登出",
+      description: "您已從管理後台登出",
+    });
+  };
+
   const { data: stores, isLoading: storesLoading } = useAdminStores();
   const createStore = useCreateStore();
   const updateStore = useUpdateStore();
@@ -207,6 +215,10 @@ const AdminPage = () => {
 
   const handleLogout = async () => {
     await signOut();
+    toast({
+      title: "已登出",
+      description: "您已從管理後台登出",
+    });
     navigate("/");
   };
 
