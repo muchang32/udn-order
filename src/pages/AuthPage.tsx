@@ -15,7 +15,7 @@ const AuthPage = () => {
     // Check if user is already logged in
     const checkAuth = async () => {
       const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-      
+
       if (session) {
         // Check if user has admin or super_admin role
         const { data: roles, error } = await supabase
@@ -86,14 +86,14 @@ const AuthPage = () => {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: window.location.origin,
+          redirectTo: `${window.location.origin}${import.meta.env.BASE_URL}`,
         }
       });
 
       if (error) {
         throw error;
       }
-      
+
       // The onAuthStateChange listener will handle navigation
     } catch (error) {
       console.error("Login error:", error);
