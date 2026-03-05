@@ -4,11 +4,13 @@ import { useAuth } from "@/hooks/useAuth";
 import { Store, Settings, Loader2, LogOut } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { StoreCard } from "@/components/StoreCard";
+import { useToast } from "@/hooks/use-toast";
 
 const HomePage = () => {
   const { data: stores, isLoading, error } = useStores();
   const { user, isAdmin, isLoading: authLoading, isRoleLoading, signOut } = useAuth();
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   const handleAdminClick = () => {
     if (user && isAdmin) {
@@ -20,6 +22,10 @@ const HomePage = () => {
 
   const handleLogout = async () => {
     await signOut();
+    toast({
+      title: "已登出",
+      description: "您已成功登出系統",
+    });
   };
 
   const isAuthChecking = authLoading || isRoleLoading;
